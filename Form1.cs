@@ -33,6 +33,8 @@ namespace FileFind
         private BackgroundWorker m_bgWorker;
         private Hashtable ht = new Hashtable();
         private string m_Pattern;
+        static private readonly int basecounter = 32;
+        private int counter = basecounter;
 
         [DllImport("shell32.dll")]
         public static extern IntPtr ExtractAssociatedIcon(int a, string b, int c);
@@ -263,7 +265,6 @@ namespace FileFind
 
         private void VisitaRicorsiva(string d)
         {
-            m_bgWorker.ReportProgress(0, d);
             try
             {
                 if (!Directory.Exists(d))
@@ -276,13 +277,12 @@ namespace FileFind
                     System.IO.FileInfo fi = new FileInfo(s);
                     string q = s.ToUpper();
                     if (q.IndexOf(m_Pattern) > 0)
-                    {
-                        m_bgWorker.ReportProgress(0, fi);
-                    }
+                        m_bgWorker.ReportProgress(10, fi);
                 }
             }
             catch
             { }
+            m_bgWorker.ReportProgress(0, d);
         }
 
         private void MylistView_DoubleClick(object sender, System.EventArgs e)
@@ -382,33 +382,43 @@ namespace FileFind
         private void m_bgWorker_ProgressChanged(object sender, ProgressChangedEventArgs e)
         {
             FileInfo fileinfo = e.UserState as FileInfo;
-            if (fileinfo != null)
+            if (e.ProgressPercentage > 0)
             {
-                int icon = BestIconFor(fileinfo.FullName);
-                System.Windows.Forms.ListViewItem x = new ListViewItem(System.IO.Path.GetFileName(fileinfo.FullName), icon);
-                x.SubItems.Add(fileinfo.DirectoryName);
-                x.SubItems.Add(fileinfo.LastWriteTime.ToString());
-                x.SubItems.Add(fileinfo.Length.ToString("N0"));
-                string strAttr = "";
+                if (fileinfo != null)
+                {
+                    int icon = BestIconFor(fileinfo.FullName);
+                    System.Windows.Forms.ListViewItem x = new ListViewItem(System.IO.Path.GetFileName(fileinfo.FullName), icon);
+                    x.SubItems.Add(fileinfo.DirectoryName);
+                    x.SubItems.Add(fileinfo.LastWriteTime.ToString());
+                    x.SubItems.Add(fileinfo.Length.ToString("N0"));
+                    string strAttr = "";
 
-                if ((fileinfo.Attributes & FileAttributes.Archive) != 0)
-                    strAttr += "A";
+                    if ((fileinfo.Attributes & FileAttributes.Archive) != 0)
+                        strAttr += "A";
 
-                if ((fileinfo.Attributes & FileAttributes.Hidden) != 0)
-                    strAttr += "H";
+                    if ((fileinfo.Attributes & FileAttributes.Hidden) != 0)
+                        strAttr += "H";
 
-                if ((fileinfo.Attributes & FileAttributes.ReadOnly) != 0)
-                    strAttr += "R";
+                    if ((fileinfo.Attributes & FileAttributes.ReadOnly) != 0)
+                        strAttr += "R";
 
-                if ((fileinfo.Attributes & FileAttributes.System) != 0)
-                    strAttr += "S";
+                    if ((fileinfo.Attributes & FileAttributes.System) != 0)
+                        strAttr += "S";
 
-                x.SubItems.Add(strAttr);
-                m_listView.Items.Add(x);
+                    x.SubItems.Add(strAttr);
+                    m_listView.Items.Add(x);
+                }
             }
             string s = e.UserState as string;
-            if ( s != null )
-                statusBar1.Panels[0].Text = s;
+            if (s != null)
+            {
+                counter--;
+                if (counter <= 0)
+                {
+                    counter = basecounter;
+                    statusBar1.Panels[0].Text = s;
+                }
+            }
         }
 
         private void m_bgWorker_RunWorkerCompleted(object sender, RunWorkerCompletedEventArgs e)
