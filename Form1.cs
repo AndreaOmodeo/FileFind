@@ -67,7 +67,6 @@ namespace FileFind
         /// </summary>
         private void InitializeComponent()
         {
-            this.components = new System.ComponentModel.Container();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(Form1));
             this.btnGO = new System.Windows.Forms.Button();
             this.m_txtPattern = new System.Windows.Forms.TextBox();
@@ -78,7 +77,7 @@ namespace FileFind
             this.Date = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.columnHeader3 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.columnHeader4 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
-            this.icons = new System.Windows.Forms.ImageList(this.components);
+            this.icons = new System.Windows.Forms.ImageList();
             this.label1 = new System.Windows.Forms.Label();
             this.label2 = new System.Windows.Forms.Label();
             this.BrowseDir = new System.Windows.Forms.Button();
@@ -117,15 +116,16 @@ namespace FileFind
             // m_listView
             // 
             this.m_listView.AllowDrop = true;
-            this.m_listView.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom)
-                        | System.Windows.Forms.AnchorStyles.Left)
-                        | System.Windows.Forms.AnchorStyles.Right)));
+            this.m_listView.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
             this.m_listView.Columns.AddRange(new System.Windows.Forms.ColumnHeader[] {
             this.columnHeader1,
             this.columnHeader2,
             this.Date,
             this.columnHeader3,
             this.columnHeader4});
+            this.m_listView.HideSelection = false;
             this.m_listView.LargeImageList = this.icons;
             this.m_listView.Location = new System.Drawing.Point(0, 64);
             this.m_listView.Name = "m_listView";
@@ -189,11 +189,11 @@ namespace FileFind
             // BrowseDir
             // 
             this.BrowseDir.AutoSize = true;
-            this.BrowseDir.Image = ((System.Drawing.Image)(resources.GetObject("BrowseDir.Image")));
-            this.BrowseDir.Location = new System.Drawing.Point(280, 32);
+            this.BrowseDir.Location = new System.Drawing.Point(278, 28);
             this.BrowseDir.Name = "BrowseDir";
-            this.BrowseDir.Size = new System.Drawing.Size(30, 30);
+            this.BrowseDir.Size = new System.Drawing.Size(68, 30);
             this.BrowseDir.TabIndex = 7;
+            this.BrowseDir.Text = "Change dir";
             this.BrowseDir.Click += new System.EventHandler(this.BrowseDir_Click);
             // 
             // statusBar1
