@@ -67,6 +67,7 @@ namespace FileFind
         /// </summary>
         private void InitializeComponent()
         {
+            this.components = new System.ComponentModel.Container();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(Form1));
             this.btnGO = new System.Windows.Forms.Button();
             this.m_txtPattern = new System.Windows.Forms.TextBox();
@@ -77,7 +78,7 @@ namespace FileFind
             this.Date = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.columnHeader3 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.columnHeader4 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
-            this.icons = new System.Windows.Forms.ImageList();
+            this.icons = new System.Windows.Forms.ImageList(this.components);
             this.label1 = new System.Windows.Forms.Label();
             this.label2 = new System.Windows.Forms.Label();
             this.BrowseDir = new System.Windows.Forms.Button();
@@ -189,11 +190,14 @@ namespace FileFind
             // BrowseDir
             // 
             this.BrowseDir.AutoSize = true;
+            this.BrowseDir.Image = ((System.Drawing.Image)(resources.GetObject("BrowseDir.Image")));
             this.BrowseDir.Location = new System.Drawing.Point(278, 28);
             this.BrowseDir.Name = "BrowseDir";
-            this.BrowseDir.Size = new System.Drawing.Size(68, 30);
+            this.BrowseDir.Size = new System.Drawing.Size(94, 30);
             this.BrowseDir.TabIndex = 7;
             this.BrowseDir.Text = "Change dir";
+            this.BrowseDir.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
+            this.BrowseDir.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageBeforeText;
             this.BrowseDir.Click += new System.EventHandler(this.BrowseDir_Click);
             // 
             // statusBar1
